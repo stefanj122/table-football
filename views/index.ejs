@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+</head>
+<body>
+<style>
+    table {
+        border: black 1px solid;
+    }
+
+    th {
+        border: black 1px solid;
+    }
+
+    td {
+        border: black 1px solid;
+    }
+</style>
+<table>
+    <h2>Teams</h2>
+    <tr>
+        <th>No.</th>
+        <th>Player</th>
+        <th>Wins</th>
+        <th>Lost</th>
+        <th>Total Games</th>
+        <th>Score</th>
+    </tr>
+    <% team.forEach((user, i) =>{ %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td> <%= user.name %></td>
+            <td><%= user.wins %></td>
+            <td><%= user.lost %></td>
+            <td><%= user.totalGames %></td>
+            <td><%= user.score %></td>
+        </tr>
+    <% }) %>
+</table>
+
+<table>
+    <h2>Single</h2>
+    <tr>
+        <th>No.</th>
+        <th>Team</th>
+        <th>Wins</th>
+        <th>Lost</th>
+        <th>Total Games</th>
+        <th>Score</th>
+    </tr>
+    <% single.forEach((user, i) =>{ %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td><a style="text-decoration: none" href="/users/<%= user.id %>"> <%= user.name %></a></td>
+            <td><%= user.wins %></td>
+            <td><%= user.lost %></td>
+            <td><%= user.totalGames %></td>
+            <td><%= user.score %></td>
+        </tr>
+    <% }) %>
+</table>
+<h2>All users</h2>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>ID</th>
+    </tr>
+    <% users.forEach((user) =>{ %>
+        <tr>
+            <td><a style="text-decoration: none" href="/users/<%= user.Id %>"> <%= user.Name %></a></td>
+            <td><%= user.Id %></td>
+        </tr>
+    <% }) %>
+</table>
+<form style="margin-top: 40px" action="/teams/score" method="post">
+<label>Team 1 P1:</label>
+<select name="to_po" type="text">
+    <% users.forEach((user) =>{ %>
+        <option value=<%= user.Id %>>
+             <%= user.Name %>
+        </option>
+    <% }) %>
+</select>
+
+<label>Team 1 P2:</label>
+<select name="to_pt" type="text"/>
+    <% users.forEach((user) =>{ %>
+      <option value=<%= user.Id %>>
+             <%= user.Name %>
+        </option>
+    <% }) %>
+</select>
+
+</br>
+
+<label>Team 2 P1:</label>
+<select name="tt_po" type="text"/>
+    <% users.forEach((user) =>{ %>
+      <option value=<%= user.Id %>>
+             <%= user.Name %>
+        </option>
+    <% }) %>
+</select>
+<label>Team 2 P2:</label>
+<select name="tt_pt" type="text"/>
+    <% users.forEach((user) =>{ %>
+      <option value=<%= user.Id %> >
+             <%= user.Name %>
+        </option>
+    <% }) %>
+</select>
+
+</br>
+
+<label>Result:</label>
+<input type="text" name="result" placeholder="9:9"/>
+<button type="submit">Add</button>
+</form>
+</body>
+</html>

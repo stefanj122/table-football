@@ -1,0 +1,40 @@
+<h2>User History:</h2>
+<table>
+    <h3>Single</h3>
+    <tr>
+        <th>No.</th>
+        <th>Opponent</th>
+        <th>Result</th>
+        <th>Result</th>
+    </tr>
+    <% users.forEach((user, i) =>{ %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td> <%= user.p1 %></td>
+            <td><%= user.p2 %></td>
+            <td><%= user.result %></td>
+        </tr>
+    <% }) %>
+
+</table>
+<table>
+    <h3>Teams</h3>
+    <tr>
+        <th>No.</th>
+        <th>Team mate</th>
+        <th>Team mate</th>
+        <th>Opponent 1</th>
+        <th>Opponent 2</th>
+        <th>Result</th>
+    </tr>
+    <% teams.forEach((user, i) =>{ %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td> <%= user.p1 %></td>
+            <td><%= user.p2 %></td>
+            <td> <%= user.p3 %></td>
+            <td><%= user.p4 %></td>
+            <td><%= user.result %></td>
+        </tr>
+    <% }) %>
+  </table>
