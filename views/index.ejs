@@ -20,11 +20,11 @@
 
 </style>
 <body>
-<div class="container mx-auto flex flex-col items-center justify-center h-screen">
-    <div class="relative overflow-x-auto shadow-lg sm:rounded-lg hover:shadow-xl w-full" style="height: max-content;">
+<div class="container mx-auto flex flex-col items-center justify-center">
+    <div class="relative shadow-lg sm:rounded-lg hover:shadow-xl w-full" style="height: max-content;">
         <h2 class="text-xl font-semibold p-2">Single</h2>
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr class="text-center text-base">
                     <th scope="col" class="px-6 py-3">
                         No.
@@ -48,8 +48,8 @@
             </thead>
             <tbody>
                 <% single.forEach((user, i) =>{ %>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center text-base">
-                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr class="bg-white border-b text-center text-base">
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         <%= i + 1 %>
                     </td>
                     <td class="px-6 py-4">
@@ -73,10 +73,10 @@
         </table>
     </div>
 
-<div class="relative overflow-x-auto shadow-lg sm:rounded-lg hover:shadow-xl w-full mt-10" style="height: max-content;">
+<div class="relative shadow-lg sm:rounded-lg hover:shadow-xl w-full mt-10" style="height: max-content;">
     <h2 class="text-xl font-semibold p-2">Teams</h2>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr class="text-center text-base">
                 <th scope="col" class="px-6 py-3">
                     No.
@@ -100,8 +100,8 @@
         </thead>
         <tbody>
             <% team.forEach((user, i) =>{ %>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center text-base">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr class="bg-white border-b text-center text-base">
+                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                     <%= i + 1 %>
                 </td>
                 <td class="px-6 py-4">
@@ -132,8 +132,8 @@
 <div class="w-full flex gap-5 justify-between mt-10">
     <div class="relative overflow-x-auto shadow-lg sm:rounded-lg hover:shadow-xl" style="height: max-content;">
         <h2 class="text-xl font-semibold text-center p-2">All users</h2>
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Name
@@ -145,8 +145,8 @@
             </thead>
             <tbody>
                 <% users.forEach((user) =>{ %>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr class="bg-white border-b ">
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         <a style="text-decoration: none" href="/users/<%= user.Id %>"> <%= user.Name %></a>
                     </td>
                     <td class="px-6 py-4">
