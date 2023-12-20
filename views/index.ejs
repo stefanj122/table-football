@@ -2,120 +2,208 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link href="/views/app.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                clifford: '#da373d',
+              }
+            }
+          }
+        }
+      </script>
 </head>
-<body>
 <style>
-    table {
-        border: black 1px solid;
-    }
 
-    th {
-        border: black 1px solid;
-    }
-
-    td {
-        border: black 1px solid;
-    }
 </style>
-<table>
-    <h2>Teams</h2>
-    <tr>
-        <th>No.</th>
-        <th>Player</th>
-        <th>Wins</th>
-        <th>Lost</th>
-        <th>Total Games</th>
-        <th>Score</th>
-    </tr>
-    <% team.forEach((user, i) =>{ %>
-        <tr>
-            <td><%= i + 1 %></td>
-            <td> <%= user.name %></td>
-            <td><%= user.wins %></td>
-            <td><%= user.lost %></td>
-            <td><%= user.totalGames %></td>
-            <td><%= user.score %></td>
-        </tr>
-    <% }) %>
-</table>
+<body>
+<div class="container mx-auto flex flex-col items-center justify-center h-screen">
+    <div class="relative overflow-x-auto shadow-lg sm:rounded-lg hover:shadow-xl w-full" style="height: max-content;">
+        <h2 class="text-xl font-semibold p-2">Single</h2>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr class="text-center text-base">
+                    <th scope="col" class="px-6 py-3">
+                        No.
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Team
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Wins
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Lost
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Total Games
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Score
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% single.forEach((user, i) =>{ %>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center text-base">
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <%= i + 1 %>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a style="text-decoration: none" href="/users/<%= user.id %>"> <%= user.name %></a>
+                    </td>
+                    <td class="px-6 py-4">
+                        <%= user.wins %>
+                    </td>
+                    <td class="px-6 py-4">
+                        <%= user.lost %>
+                    </td>
+                    <td class="px-6 py-4 font-semibold">
+                        <%= user.totalGames %>
+                    </td>
+                    <td class="px-6 py-4">
+                        <%= user.score %>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 
-<table>
-    <h2>Single</h2>
-    <tr>
-        <th>No.</th>
-        <th>Team</th>
-        <th>Wins</th>
-        <th>Lost</th>
-        <th>Total Games</th>
-        <th>Score</th>
-    </tr>
-    <% single.forEach((user, i) =>{ %>
-        <tr>
-            <td><%= i + 1 %></td>
-            <td><a style="text-decoration: none" href="/users/<%= user.id %>"> <%= user.name %></a></td>
-            <td><%= user.wins %></td>
-            <td><%= user.lost %></td>
-            <td><%= user.totalGames %></td>
-            <td><%= user.score %></td>
-        </tr>
-    <% }) %>
-</table>
-<h2>All users</h2>
-<table>
-    <tr>
-        <th>NAME</th>
-        <th>ID</th>
-    </tr>
-    <% users.forEach((user) =>{ %>
-        <tr>
-            <td><a style="text-decoration: none" href="/users/<%= user.Id %>"> <%= user.Name %></a></td>
-            <td><%= user.Id %></td>
-        </tr>
-    <% }) %>
-</table>
-<form style="margin-top: 40px" action="/teams/score" method="post">
-<label>Team 1 P1:</label>
-<select name="to_po" type="text">
-    <% users.forEach((user) =>{ %>
-        <option value=<%= user.Id %>>
-             <%= user.Name %>
-        </option>
-    <% }) %>
-</select>
+<div class="relative overflow-x-auto shadow-lg sm:rounded-lg hover:shadow-xl w-full mt-10" style="height: max-content;">
+    <h2 class="text-xl font-semibold p-2">Teams</h2>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr class="text-center text-base">
+                <th scope="col" class="px-6 py-3">
+                    No.
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Team
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Wins
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Lost
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Total Games
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Score
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% team.forEach((user, i) =>{ %>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center text-base">
+                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <%= i + 1 %>
+                </td>
+                <td class="px-6 py-4">
+                    <%= user.name %>
+                </td>
+                <td class="px-6 py-4 text-green-500 font-semibold">
+                    <%= user.wins %>
+                </td>
+                <td class="px-6 py-4 text-red-600 font-semibold">
+                    <%= user.lost %>
+                </td>
+                <td class="px-6 py-4 font-semibold">
+                    <%= user.totalGames %>
+                </td>
+                <td class="px-6 py-4">
+                    <%= user.score %>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
 
-<label>Team 1 P2:</label>
-<select name="to_pt" type="text"/>
-    <% users.forEach((user) =>{ %>
-      <option value=<%= user.Id %>>
-             <%= user.Name %>
-        </option>
-    <% }) %>
-</select>
 
-</br>
 
-<label>Team 2 P1:</label>
-<select name="tt_po" type="text"/>
-    <% users.forEach((user) =>{ %>
-      <option value=<%= user.Id %>>
-             <%= user.Name %>
-        </option>
-    <% }) %>
-</select>
-<label>Team 2 P2:</label>
-<select name="tt_pt" type="text"/>
-    <% users.forEach((user) =>{ %>
-      <option value=<%= user.Id %> >
-             <%= user.Name %>
-        </option>
-    <% }) %>
-</select>
 
-</br>
 
-<label>Result:</label>
-<input type="text" name="result" placeholder="9:9"/>
-<button type="submit">Add</button>
-</form>
+<div class="w-full flex gap-5 justify-between mt-10">
+    <div class="relative overflow-x-auto shadow-lg sm:rounded-lg hover:shadow-xl" style="height: max-content;">
+        <h2 class="text-xl font-semibold text-center p-2">All users</h2>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        ID
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach((user) =>{ %>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <a style="text-decoration: none" href="/users/<%= user.Id %>"> <%= user.Name %></a>
+                    </td>
+                    <td class="px-6 py-4">
+                        <%= user.Id %>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div class="flex flex-col text-lg">
+        <form class="border box-border p-6 flex flex-col gap-3 rounded-lg shadow-lg hover:shadow-xl" action="/teams/score" method="post">
+            <div class="flex justify-between">
+                <label class="text-white pr-4 bg-red-900 rounded-lg box-border px-3 p-1 w-3/12 text-center">Team 1</label>
+                <select class="flex w-4/12 rounded-md box-border px-2 cursor-pointer hover:bg-slate-200" name="to_po" type="text">
+                    <% users.forEach((user) =>{ %>
+                        <option value=<%= user.Id %>>
+                             <%= user.Name %>
+                        </option>
+                    <% }) %>
+                </select>
+                <select class="flex w-4/12 rounded-md box-border px-2 cursor-pointer hover:bg-slate-200" name="to_pt" type="text"/>
+                    <% users.forEach((user) =>{ %>
+                      <option value=<%= user.Id %>>
+                             <%= user.Name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="flex justify-between">
+                <label class="text-white pr-4 bg-blue-900 rounded-lg box-border px-3 p-1 w-3/12 text-center">Team 2</label>
+                <select class="flex w-4/12 rounded-md box-border px-2 cursor-pointer hover:bg-slate-200" name="tt_po" type="text"/>
+                    <% users.forEach((user) =>{ %>
+                      <option value=<%= user.Id %>>
+                             <%= user.Name %>
+                        </option>
+                    <% }) %>
+                </select>
+                <select class="flex w-4/12 rounded-md box-border px-2 cursor-pointer hover:bg-slate-200" name="tt_pt" type="text"/>
+                    <% users.forEach((user) =>{ %>
+                      <option value=<%= user.Id %> >
+                             <%= user.Name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <label class="text-xl pl-[22px]">Result:</label>
+                <input class="w-5/12 text-center border border-green-300 rounded-lg p-2 outline-green-400" type="text" name="result" placeholder="9:9"/>
+                <button class="bg-green-500 rounded-lg py-2 px-6 text-white cursor-pointer hover:bg-green-600 active:transition-all active:translate-y-1" type="submit">Add</button>
+            </div>
+            </form>
+    </div>
+</div>
+
+
+
+</div>
 </body>
 </html>

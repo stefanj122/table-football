@@ -3,8 +3,8 @@ const mysql = require('mysql2');
 const conn = mysql.createConnection({
     host:'localhost',
     user: 'root',
-    password: '',
-    database: 'table-football'
+    password: 'pejic',
+    database: 'tablefootball'
 })
 
 conn.query('CREATE TABLE IF NOT EXISTS users(\n' +
