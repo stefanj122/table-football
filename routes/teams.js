@@ -1,5 +1,6 @@
 var express = require('express');
 const conn = require('../config/mysql');
+const calculateSingle = require('../helpers/calculate-score');
 var router = express.Router();
 
 /* GET users listing. */
@@ -34,7 +35,6 @@ router.post('/score', async function (req, res) {
     });
     await users;
   } else {
-    console.log(req.body);
     const users = new Promise((resolve, reject) => {
       conn.query(
         `INSERT INTO teams(Id, to_player_one, to_player_two, tw_player_one, tw_player_two, result)
@@ -58,6 +58,39 @@ router.post('/score', async function (req, res) {
   }
   res.redirect('/');
 });
+
+router.get('/:id1/:id2',async (req,res) =>{
+  const {id1,id2} = req.params;
+  const team = new Promise((resolve,reject)=>{
+    conn.query(`SELECT Name FROM users WHERE Id = ? OR Id = ?`,[id1,id2],(err,result)=>{
+      if (err) reject(err);
+      resolve(result);
+    })
+  })
+  const names = team.then((value)=>{
+   return value[0].Name + ', '+ value[1].Name;
+  })
+  const teams = new Promise((resolve,reject)=>{
+    conn.query(
+      `SELECT t.id,t.created_at, t.result, CONCAT(u1.Name,", ",u2.Name) as playerOne, CONCAT(u3.Name,', ',u4.Name) as playerTwo
+                    FROM teams as t
+                             LEFT JOIN users as u1 ON u1.id = t.to_player_one
+                             LEFT JOIN users as u2 ON u2.id = t.to_player_two
+                             LEFT JOIN users as u3 ON u3.id = t.tw_player_one
+                             LEFT JOIN users as u4 ON u4.id = t.tw_player_two
+                              WHERE (u1.id = ? AND u2.id = ?) OR (u3.id = ? AND u4.id = ?) ORDER BY id DESC`,[id1,id2,id1,id2],
+      (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(result);
+      }
+    );
+  })
+
+  res.render('showTeam',{team: await teams, names: await names })
+})
+
 
 async function getPlayer(id) {
   const user = new Promise((resolve, reject) => {

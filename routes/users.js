@@ -1,5 +1,6 @@
 var express = require('express');
 const conn = require('../config/mysql');
+const calculateUserScore = require('../helpers/get-user-score');
 var router = express.Router();
 
 /* GET users listing. */
@@ -63,6 +64,15 @@ router.get('/toggle/:id', (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
+  const userName = new Promise((resolve, reject) => {
+    conn.query(`SELECT name from users WHERE id = ?`, [id], (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+
   const user = new Promise((resolve, reject) => {
     conn.query(
       `SELECT s.id,s.result, u1.Name as p1, u2.Name as p2
@@ -82,7 +92,7 @@ router.get('/:id', async (req, res) => {
 
   const teams = new Promise((resolve, reject) => {
     conn.query(
-      `SELECT t.id,t.result, u1.Name as p1, u2.Name as p2, u3.Name as p3, u4.Name as p4
+      `SELECT t.id,t.result,t.created_at,t.to_player_one,t.to_player_two, t.tw_player_one,t.tw_player_two, u1.Name as p1, u2.Name as p2, u3.Name as p3, u4.Name as p4
          FROM teams as t 
          LEFT JOIN users as u1 ON u1.id = t.to_player_one
          LEFT JOIN users as u2 ON u2.id = t.to_player_two
@@ -98,7 +108,9 @@ router.get('/:id', async (req, res) => {
       }
     );
   });
-  return res.render('user', { users: await user, teams: await teams });
+  const score = calculateUserScore(await teams, id);
+  const name = await userName;
+  return res.render('user', { users: await user, teams: await teams, score, name: await name[0].name});
 });
 
 module.exports = router;

@@ -73,7 +73,20 @@
         </table>
     </div>
 
-<div class="relative shadow-lg sm:rounded-lg hover:shadow-xl w-full mt-10" style="height: max-content;">
+<div class="shadow-lg sm:rounded-lg hover:shadow-xl w-full mt-10" style="height: max-content;">
+        <select class="rounded-md box-border px-2 cursor-pointer hover:bg-slate-200" name="thisYear" onchange="getResult(this)">
+          <option value="null">Select</option>
+          <option value="true" <% if (thisYear == "true"){ %> selected <% } %>>This year</option>
+          <option value="false" <% if (thisYear == "false"){ %> selected <% } %>>All games</option>
+        </select>
+        <select class="right-0 rounded-md box-border px-2 cursor-pointer hover:bg-slate-200" name="month" onchange="getResult(this)">
+          <option>Select month</option>
+          <% var monthNames = [ "January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December" ];
+          monthNames.forEach((month,i)=> { %>
+          <option value="<%= i+1%>" <% if (i+1 == selectedMonth){ %> selected <% } %>><%= month %></option>
+          <% }) %>
+        </select>
     <h2 class="text-xl font-semibold p-2">Teams</h2>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -105,7 +118,9 @@
                     <%= i + 1 %>
                 </td>
                 <td class="px-6 py-4">
+                <a href="/teams/<%= user.id %>">
                     <%= user.name %>
+              </a>
                 </td>
                 <td class="px-6 py-4 text-green-500 font-semibold">
                     <%= user.wins %>
@@ -206,4 +221,17 @@
 
 </div>
 </body>
+
+  <script>
+    function getResult(e) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const data = {
+        thisYear: urlParams.get('thisYear'),
+        month: urlParams.get('month'),
+      }
+      data[e.name] = e.value;
+      const query = new URLSearchParams(data);
+      this.location =this.location.origin + '?'+query;
+    }
+  </script>
 </html>

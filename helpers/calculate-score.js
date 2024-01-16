@@ -33,7 +33,7 @@ function calculateSingle(single) {
     arr.push({
       ...result[name],
       name,
-      score: (result[name].wins / result[name].totalGames).toFixed(2),
+      score: (result[name].wins * 2 - result[name].lost).toFixed(0),
     });
   }
   arr.sort((a, b) => {

@@ -3,8 +3,8 @@ const mysql = require('mysql2');
 const conn = mysql.createConnection({
     host:'localhost',
     user: 'root',
-    password: 'pejic',
-    database: 'tablefootball'
+    password: '',
+    database: 'table-football'
 })
 
 conn.query('CREATE TABLE IF NOT EXISTS users(\n' +
@@ -26,6 +26,8 @@ conn.query('CREATE TABLE IF NOT EXISTS teams(\n' +
     'to_player_two INT NOT NULL,' +
     'tw_player_one INT NOT NULL,' +
     'tw_player_two INT NOT NULL,' +
-    'result VARCHAR(50) NOT NULL' +
+    'result VARCHAR(50) NOT NULL,' +
+    'created_at DATETIME(6) DEFAULT CURRENT_TIMESTAMP(6) NULL' +
     ');')
+
 module.exports = conn;
